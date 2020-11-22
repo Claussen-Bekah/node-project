@@ -16,7 +16,7 @@ function getWord() {
 }
 
 function getHint(){
-    document.getElementById('hint').classList.remove('hidden');
+    document.getElementById('hint').classList.toggle('hidden');
 
 }
 
