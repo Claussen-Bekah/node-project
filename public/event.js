@@ -21,7 +21,6 @@ function getWord() {
 
 function getHint() {
     document.getElementById('hint').classList.toggle('hidden');
-
 }
 
 function checkAnagram() {

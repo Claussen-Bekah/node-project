@@ -6,7 +6,7 @@ body{
     margin-top: 100px;
 }
 
-h1 {
+h1, h2 {
     font-family: 'Rock Salt';
     color: #588068;
 }
@@ -40,5 +40,12 @@ button:hover {
     font-family: Lato;
     color: #aaaaaa;
     font-size: 2em;
+    padding-top: 10px;
+}
+
+#alert {
+    font-family: Lato;
+    color: #aaaaaa;
+    font-size: 1.2em;
     padding-top: 10px;
 }
