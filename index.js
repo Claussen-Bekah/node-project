@@ -17,13 +17,3 @@ express()
 
 
 
-
-
-//get results on the same page with client-side js
-//get hint based on id of currently displayed word
-
-
-
-//only serve up a word once (array?)????
-//display score
-
