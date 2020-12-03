@@ -83,6 +83,8 @@ function checkAnagram() {
             if (finalWord != finalAnswer) {
                 alert = "Try again!"
             } else {
+                let div = document.getElementById('word');
+                div.innerHTML = "";
                 count++;
                 setScore(count);
                 alert = "Great job!"
@@ -92,8 +94,7 @@ function checkAnagram() {
 
     alertDiv.innerHTML = alert;
 
-    let div = document.getElementById('word');
-    div.innerHTML = "";
+    
 
     if (!hint.classList.contains('hidden')) {
         hint.classList.add('hidden');
