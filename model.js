@@ -22,7 +22,15 @@ function getData(callback, id){
 })
 }
 
+function postData(callback) {
+
+    let sql = "INSERT into scores (username, score) values"
+
+
+}
+
 
 module.exports = {
     getData: getData,
+    postData: postData
 }

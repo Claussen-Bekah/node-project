@@ -8,13 +8,24 @@ function newWord(req, res) {
         res.json(result);
    }, id);
 
-//    model.getHint(function(result){
-//     res.json(result);
-// }, id);
+
 
 
 }
 
+function postScore(req, res) {
+    
+    let username = req.body.username;
+    let score = req.body.score;
+
+    
+
+    model.postData(function(result){
+        res.json(result);
+    }, username, score)
+}
+
 module.exports = {
-    newWord: newWord
+    newWord: newWord,
+    postScore: postScore
 }

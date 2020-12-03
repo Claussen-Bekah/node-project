@@ -23,16 +23,28 @@
     <button onclick="getHint()" id="newWord">Get Hint</button>
     <div class="hidden" id="hint"></div>
 
-    
-    <h2>Answer here:</h2>
-   
-        <input type="text" name="anagram" id="anagram">
-        <button onclick="checkAnagram()">Submit Answer</button>
 
-        <div id="alert">
-            
-        </div>
+    <h2>Answer here:</h2>
+
+    <input type="text" name="anagram" id="anagram">
+    <button onclick="checkAnagram()">Submit Answer</button>
+
+    <div id="alert">
+
+    </div>
+
+    <p class="score">Your score: <span id="count">0</span></p>
+
     
+    <label for="username">Username:</label><input type="text" name="username" id="username">
+    <button onclick="postScore()">Post Score</button>
+
+
+    <h2>Top Scores:</h2>
+    <div id="topScores">
+
+    </div>
+
 
 </body>
 

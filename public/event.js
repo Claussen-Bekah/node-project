@@ -1,13 +1,16 @@
 function getWord() {
     let hint = document.getElementById('hint');
 
+    let alertDiv = document.getElementById('alert');
+    alertDiv.innerHTML = "";
+
+
     if (!hint.classList.contains('hidden')) {
         hint.classList.add('hidden');
     }
 
     $.get("/newWord", function (result) {
 
-        console.log(result);
         let div = document.getElementById('word');
         div.innerHTML = result[0].word;
 
@@ -19,9 +22,37 @@ function getWord() {
 
 }
 
+function postScore() {
+    let username = $("#username").val();
+	let score = $("#count").html();
+
+	let params = {
+		username: username,
+		score: score
+    };
+   
+    $.post({
+        traditional: true,
+        url: '/postScore',
+        contentType: 'application/json',
+        data: JSON.stringify( params ),
+        dataType: 'json',
+        success: function(response){ console.log( response ); }
+} );
+
+    // console.log(params);
+
+	// $.post("/postScore", params, function(result) {
+    //     let scoreDiv = document.getElementById('topScores');
+    //     scoreDiv.innerHTML = result;
+	// });
+}
+
 function getHint() {
     document.getElementById('hint').classList.toggle('hidden');
 }
+
+let count = 0;
 
 function checkAnagram() {
     let answer = document.getElementById('anagram').value;
@@ -52,18 +83,35 @@ function checkAnagram() {
             if (finalWord != finalAnswer) {
                 alert = "Try again!"
             } else {
+                count++;
+                setScore(count);
                 alert = "Great job!"
             }
         }
     }
 
-        alertDiv.innerHTML = alert;
+    alertDiv.innerHTML = alert;
+
+    let div = document.getElementById('word');
+    div.innerHTML = "";
+
+    if (!hint.classList.contains('hidden')) {
+        hint.classList.add('hidden');
+    }
+
 
 
 
 }
 
-function setStorage(){
-    localStorage.setItem(quoteid, JSON.stringify(quote));
+function setScore(count) {
+
+    let countP = document.getElementById('count');
+
+    countP.innerHTML = count;
+
+
+
+
 
 }
