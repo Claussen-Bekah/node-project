@@ -2,7 +2,7 @@ const model = require('./model.js')
 
 function newWord(req, res) {
 
-    let id = Math.floor(Math.random() * 3) + 1;
+    let id = Math.floor(Math.random() * 33) + 1;
 
    model.getData(function(result){
         res.json(result);

@@ -60,5 +60,10 @@ function checkAnagram() {
         alertDiv.innerHTML = alert;
 
 
-    
+
+}
+
+function setStorage(){
+    localStorage.setItem(quoteid, JSON.stringify(quote));
+
 }
