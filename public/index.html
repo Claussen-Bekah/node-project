@@ -12,37 +12,51 @@
 </head>
 
 <body>
-    <h1>Get a word</h1>
+    <div class="grid">
+        <div>
+            <h1>Get a word</h1>
 
-    <div id="word">
-    </div>
-    <div>
-        <button onclick="getWord()" id="newWord">Get Word</button>
-    </div>
+            <div id="word">
+            </div>
+            <div>
+                <button onclick="getWord()" id="newWord">Get Word</button>
+            </div>
 
-    <button onclick="getHint()" id="newWord">Get Hint</button>
-    <div class="hidden" id="hint"></div>
-
-
-    <h2>Answer here:</h2>
-
-    <input type="text" name="anagram" id="anagram">
-    <button onclick="checkAnagram()">Submit Answer</button>
-
-    <div id="alert">
-
-    </div>
-
-    <p class="score">Your score: <span id="count">0</span></p>
-
-    
-    <label for="username">Username:</label><input type="text" name="username" id="username">
-    <button onclick="postScore()">Post Score</button>
+            <button onclick="getHint()" id="newWord">Get Hint</button>
+            <div class="hidden" id="hint"></div>
 
 
-    <h2>Top Scores:</h2>
-    <div id="topScores">
+            <h2>Answer here:</h2>
 
+            <input type="text" name="anagram" id="anagram">
+            <button onclick="checkAnagram()">Submit Answer</button>
+
+            <div id="alert">
+
+            </div>
+        </div>
+
+        <div class="line">
+            <img src="line.png" alt="dividing line">
+        </div>
+
+        <div>
+
+            <p class="score">Your score: <span id="count">0</span></p>
+
+
+            <label for="username">Username:</label><input type="text" name="username" id="username">
+            <button onclick="postScore()">Post Score</button>
+
+
+            <button class="special" onclick="viewScores()">See Top Scores</button>
+       
+            <ol id="topScores">
+
+            </ol>
+
+
+        </div>
     </div>
 
 

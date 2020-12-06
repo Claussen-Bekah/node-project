@@ -3,6 +3,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const controller = require('./controller.js')
 
+
 const PORT = process.env.PORT || 5000
 
 express()
@@ -13,7 +14,8 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/newWord', controller.newWord)
-  .post("/postScore", controller.postScore)
+  .get('/viewScores', controller.viewScores)
+  .post('/postScore', controller.postScore)
 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 

@@ -24,7 +24,8 @@ background-color: #9D8A76;
   color: white;
   padding: 16px 32px;
   text-decoration: none;
-  margin: 4px 20px;
+  margin: 10px 20px;
+  border-radius: 5px;
 
 }
 
@@ -49,5 +50,38 @@ button:hover {
     font-size: 1.2em;
     padding-top: 10px;
 }
+
+.grid {
+    display: grid;
+    grid-template-columns: .75fr .15fr .5fr;
+    align-items: center;
+    justify-content: center;
+}
+
+label {
+    font-family: Lato;
+    padding: 10px;
+}
+
+input[type=text]{
+    padding: 10px;
+}
+
+.special {
+    background-color: black;
+}
+
+ol{
+    font-family: Lato;
+    max-width: 150px;
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    text-align: center;
+}
+
+
 
 

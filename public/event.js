@@ -14,7 +14,6 @@ function getWord() {
         let div = document.getElementById('word');
         div.innerHTML = result[0].word;
 
-        let hint = document.getElementById('hint');
         hint.innerHTML = result[0].hint;
 
     })
@@ -24,33 +23,50 @@ function getWord() {
 
 function postScore() {
     let username = $("#username").val();
-	let score = $("#count").html();
+    let score = $("#count").html();
 
-	let params = {
-		username: username,
-		score: score
+    let params = {
+        username: username,
+        score: score
     };
-   
+
     $.post({
         traditional: true,
         url: '/postScore',
         contentType: 'application/json',
-        data: JSON.stringify( params ),
+        data: JSON.stringify(params),
         dataType: 'json',
-        success: function(response){ console.log( response ); }
-} );
+        success: function (response) {
+            console.log(response);
+        }
+    });
 
-    // console.log(params);
+}
 
-	// $.post("/postScore", params, function(result) {
-    //     let scoreDiv = document.getElementById('topScores');
-    //     scoreDiv.innerHTML = result;
-	// });
+function viewScores() {
+    let ul = document.getElementById('topScores');
+
+
+        $.get("/viewScores", function (result) {
+
+            console.log(result);
+
+            for (let i = 0; i <= 10; i++) {
+                let li = document.createElement('li');
+                li.textContent = result[i].username + ": " + result[i].score;
+                ul.appendChild(li);
+            }
+
+        })
+    
+    
 }
 
 function getHint() {
     document.getElementById('hint').classList.toggle('hidden');
 }
+
+
 
 let count = 0;
 
@@ -94,7 +110,7 @@ function checkAnagram() {
 
     alertDiv.innerHTML = alert;
 
-    
+
 
     if (!hint.classList.contains('hidden')) {
         hint.classList.add('hidden');
@@ -116,3 +132,9 @@ function setScore(count) {
 
 
 }
+
+//post top scores
+//clean inputs
+//post
+//get top scores
+//change css layout
