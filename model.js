@@ -2,6 +2,8 @@ const {
     Pool
 } = require('pg');
 require('dotenv').config();
+const https = require("https");
+
 
 
 const connectionString = process.env.DATABASE_URL;
@@ -40,8 +42,7 @@ function postData(username, score) {
 
 function viewScores(callback) {
 
-
-    let sql = "SELECT username, score FROM scores ORDER BY score DESC LIMIT 10";
+    let sql = "SELECT username, score FROM scores ORDER BY score DESC, username LIMIT 10";
 
     pool.query(sql, function (err, result) {
         if (err) {
@@ -56,8 +57,42 @@ function viewScores(callback) {
 }
 
 
+function dictionaryCall(callback, word) {
+
+
+const app_id = "86222f4a";
+const app_key = "46b000f81bdd16e18d064ad7d7a98329"; //
+const wordId = word;
+const fields = "pronunciations";
+const strictMatch = "false";
+const options = {
+   host: 'od-api.oxforddictionaries.com',
+   port: '443',
+   path: '/api/v2/lemmas/en/' + wordId, //+ '?fields=' + fields + '&strictMatch=' + strictMatch
+   method: "GET",
+   headers: {
+     'app_id': app_id,
+     'app_key': app_key
+   }
+ };
+https.get(options, (resp) => {
+  let body = '';
+  resp.on('data', (d) => {
+    body += d;
+  });
+  resp.on('end', () => {
+    let parsed = JSON.stringify(body);
+    callback(parsed);
+  });
+});
+
+}
+
+
+
 module.exports = {
     getData: getData,
     postData: postData,
-    viewScores: viewScores
+    viewScores: viewScores,
+    dictionaryCall: dictionaryCall
 }

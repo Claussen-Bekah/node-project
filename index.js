@@ -16,8 +16,12 @@ express()
   .get('/newWord', controller.newWord)
   .get('/viewScores', controller.viewScores)
   .post('/postScore', controller.postScore)
+  .get('/dictionaryCall', controller.dictionaryCall)
 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+  
+
 
 
 

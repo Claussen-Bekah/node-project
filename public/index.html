@@ -40,20 +40,24 @@
             <img src="line.png" alt="dividing line">
         </div>
 
-        <div>
+        <div class="scoring">
 
             <p class="score">Your score: <span id="count">0</span></p>
 
 
             <label for="username">Username:</label><input type="text" name="username" id="username">
             <button onclick="postScore()">Post Score</button>
+            <p id="scoreAlert"></p>
 
 
-            <button class="special" onclick="viewScores()">See Top Scores</button>
+            <button id="viewScoresBtn" class="special" onclick="viewScores()">See Top Scores</button>
        
+            <div class="maxWidth">
             <ol id="topScores">
 
             </ol>
+
+        </div>
 
 
         </div>

@@ -1,13 +1,12 @@
 const model = require('./model.js')
 
-
 function newWord(req, res) {
 
     let id = Math.floor(Math.random() * 33) + 1;
 
-   model.getData(function(result){
+    model.getData(function (result) {
         res.json(result);
-   }, id);
+    }, id);
 
 
 
@@ -15,7 +14,7 @@ function newWord(req, res) {
 }
 
 function postScore(req, res) {
-    
+
     let username = req.body.username;
     let score = req.body.score;
 
@@ -23,14 +22,24 @@ function postScore(req, res) {
 }
 
 
-function viewScores(req, res){
-    model.viewScores(function(result){
+function viewScores(req, res) {
+    model.viewScores(function (result) {
         res.json(result);
     })
 }
 
+function dictionaryCall(req, res) {
+    model.dictionaryCall(function(result){
+        res.json(result);
+    }, req.query.answer);
+}
+
+
+
+
 module.exports = {
     newWord: newWord,
     postScore: postScore,
-    viewScores: viewScores
+    viewScores: viewScores,
+    dictionaryCall: dictionaryCall
 }

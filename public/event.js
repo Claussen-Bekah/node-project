@@ -21,6 +21,8 @@ function getWord() {
 
 }
 
+let clicked = false;
+
 function postScore() {
     let username = $("#username").val();
     let score = $("#count").html();
@@ -41,25 +43,43 @@ function postScore() {
         }
     });
 
+    let alert = document.getElementById('scoreAlert');
+    alert.innerHTML = "Score successfully posted!";
+
+    clicked = false;
+    viewScores();
+
+
 }
 
-function viewScores() {
-    let ul = document.getElementById('topScores');
 
+function viewScores() {
+    let ol = document.getElementById('topScores');
+    ol.innerHTML = "";
+
+    if (clicked == false) {
 
         $.get("/viewScores", function (result) {
 
-            console.log(result);
-
-            for (let i = 0; i <= 10; i++) {
+            for (let i = 0; i < result.length; i++) {
                 let li = document.createElement('li');
+                console.log(result[i].username);
                 li.textContent = result[i].username + ": " + result[i].score;
-                ul.appendChild(li);
+                ol.appendChild(li);
             }
 
         })
-    
-    
+
+        clicked = true;
+        document.getElementById("viewScoresBtn").innerHTML = "Hide Top Scores";
+    } else {
+        ol.classList.toggle('hidden');
+        document.getElementById("viewScoresBtn").innerHTML = "See Top Scores";
+
+
+
+    }
+
 }
 
 function getHint() {
@@ -74,12 +94,16 @@ function checkAnagram() {
     let answer = document.getElementById('anagram').value;
     let word = document.getElementById('word').innerHTML;
 
+
+
     let alert = "";
     let alertDiv = document.getElementById('alert');
 
     if (answer == word) {
         alert = "Same word, loser";
     } else {
+
+
 
         let wordArray = word.split('');
         let answerArray = answer.split('');
@@ -99,22 +123,32 @@ function checkAnagram() {
             if (finalWord != finalAnswer) {
                 alert = "Try again!"
             } else {
-                let div = document.getElementById('word');
-                div.innerHTML = "";
-                count++;
-                setScore(count);
-                alert = "Great job!"
+
+                $.get(`/dictionaryCall?answer=${answer}`, function (result) {
+                    if (result.includes("error")) {
+                        alert = "Not a real word, sneaky pants!";
+                    } else {
+                        getWord();
+                        count++;
+                        setScore(count);
+                        alert = `Great job: ${answer} is a valid anagram of ${word}. `;
+                        document.getElementById('anagram').value = "";
+                    }
+                    alertDiv.innerHTML = alert;
+
+                })
+
+
             }
         }
     }
-
     alertDiv.innerHTML = alert;
-
 
 
     if (!hint.classList.contains('hidden')) {
         hint.classList.add('hidden');
     }
+
 
 
 
@@ -128,13 +162,4 @@ function setScore(count) {
     countP.innerHTML = count;
 
 
-
-
-
 }
-
-//post top scores
-//clean inputs
-//post
-//get top scores
-//change css layout

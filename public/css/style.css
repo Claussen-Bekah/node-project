@@ -71,16 +71,19 @@ input[type=text]{
     background-color: black;
 }
 
-ol{
+#topScores {
     font-family: Lato;
-    max-width: 150px;
-    margin: 0;
-    padding: 0;
 }
 
-li{
-    text-align: center;
+#topScores li {
+    padding-top: 5px;
 }
+
+.maxWidth {
+    width: 150px;
+    margin-left: 150px;
+}
+
 
 
 
