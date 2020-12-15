@@ -1,3 +1,15 @@
+const model = require('./model.js');
+const https = require('https');
+const {
+    Pool
+} = require('pg');
+require('dotenv').config();
+
+const connectionString = process.env.DATABASE_URL;
+const pool = new Pool({
+    connectionString: connectionString
+});
+
 let wordsArray = [
 'abed',
 'bade',
@@ -870,4 +882,53 @@ let wordsArray = [
 'wither',
 'writhe'];
 
-// 
+
+
+
+for (let i = 0; i < 10; i++){
+    const app_id = "86222f4a";
+    const app_key = "46b000f81bdd16e18d064ad7d7a98329"; //
+    const wordId = wordsArray[i];
+    const fields = "pronunciations";
+    const strictMatch = "false";
+    const options = {
+        host: 'od-api.oxforddictionaries.com',
+        port: '443',
+        path: '/api/v2/entries/en-us/' + wordId, //+ '?fields=' + fields + '&strictMatch=' + strictMatch
+        method: "GET",
+        headers: {
+            'app_id': app_id,
+            'app_key': app_key
+        }
+    };
+
+    
+    
+
+    https.get(options, (resp) => {
+        let body = '';
+        resp.on('data', (d) => {
+            body += d;
+        });
+        resp.on('end', () => {
+            let definition = JSON.parse(body).results[0].lexicalEntries[0].entries[0].senses[0].definitions[0];
+            let sqlArray = [];
+            sqlArray.push('DROP TABLE IF EXISTS wordses; CREATE TABLE IF NOT EXISTS wordses (id integer primary key, word varchar(50));');
+            sqlArray.push('DROP TABLE IF EXISTS definitions; CREATE TABLE IF NOT EXISTS defs (id integer primary key, word_id integer references wordses(id), definition varchar(250))');
+            sqlArray.push(`INSERT into wordses (id, word) values ('${i+1}' , ${wordsArray[i]})`);
+            sqlArray.push(`INSERT into defs (id, word_id, definition) values ('${i+1}' , '${i+1}', ${definition})`);
+
+            for (let ii = 0; i < sqlArray.length; i++) {
+                pool.query(sqlArray[ii], function (err, result) {
+                    if (err) {
+                        console.log("Error in query: ")
+                        console.log(err);
+                    }
+                })    
+            }
+        });
+    });
+}
+
+
+

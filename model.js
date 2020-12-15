@@ -4,16 +4,12 @@ const {
 require('dotenv').config();
 const https = require("https");
 
-
-
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
     connectionString: connectionString
 });
 
 function getData(callback, id) {
-
-
     let sql = "SELECT words.word, hints.hint FROM hints JOIN words ON hints.word_id=words.id WHERE hints.word_id =" + id;
 
     pool.query(sql, function (err, result) {
@@ -21,10 +17,7 @@ function getData(callback, id) {
             console.log("Error in query: ")
             console.log(err);
         }
-
-
         callback(result.rows);
-
     })
 }
 
@@ -41,7 +34,6 @@ function postData(username, score) {
 }
 
 function viewScores(callback) {
-
     let sql = "SELECT username, score FROM scores ORDER BY score DESC, username LIMIT 10";
 
     pool.query(sql, function (err, result) {
@@ -49,43 +41,35 @@ function viewScores(callback) {
             console.log("Error in query: ")
             console.log(err);
         }
-
-
         callback(result.rows);
-
     })
 }
 
 
 function dictionaryCall(callback, word) {
-
-
-const app_id = "86222f4a";
-const app_key = "46b000f81bdd16e18d064ad7d7a98329"; //
-const wordId = word;
-const fields = "pronunciations";
-const strictMatch = "false";
-const options = {
-   host: 'od-api.oxforddictionaries.com',
-   port: '443',
-   path: '/api/v2/lemmas/en/' + wordId, //+ '?fields=' + fields + '&strictMatch=' + strictMatch
-   method: "GET",
-   headers: {
-     'app_id': app_id,
-     'app_key': app_key
-   }
- };
-https.get(options, (resp) => {
-  let body = '';
-  resp.on('data', (d) => {
-    body += d;
-  });
-  resp.on('end', () => {
-    let parsed = JSON.stringify(body);
-    callback(parsed);
-  });
-});
-
+    const app_id = "86222f4a";
+    const app_key = "46b000f81bdd16e18d064ad7d7a98329"; //
+    const wordId = word;
+    const options = {
+        host: 'od-api.oxforddictionaries.com',
+        port: '443',
+        path: '/api/v2/lemmas/en/' + wordId,
+        method: "GET",
+        headers: {
+            'app_id': app_id,
+            'app_key': app_key
+        }
+    };
+    https.get(options, (resp) => {
+        let body = '';
+        resp.on('data', (d) => {
+            body += d;
+        });
+        resp.on('end', () => {
+            let parsed = JSON.stringify(body);
+            callback(parsed);
+        });
+    });
 }
 
 

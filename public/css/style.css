@@ -73,16 +73,14 @@ input[type=text]{
 
 #topScores {
     font-family: Lato;
+    max-width: 20%;
+    margin-left: 35%;
 }
 
 #topScores li {
     padding-top: 5px;
 }
 
-.maxWidth {
-    width: 150px;
-    margin-left: 150px;
-}
 
 
 

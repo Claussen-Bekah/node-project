@@ -1,20 +1,14 @@
 const model = require('./model.js')
 
 function newWord(req, res) {
-
-    let id = Math.floor(Math.random() * 33) + 1;
+    let id = Math.floor(Math.random() * 106) + 1;
 
     model.getData(function (result) {
         res.json(result);
     }, id);
-
-
-
-
 }
 
 function postScore(req, res) {
-
     let username = req.body.username;
     let score = req.body.score;
 
